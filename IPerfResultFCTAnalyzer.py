@@ -103,6 +103,7 @@ def getAVGFCTByFolderOld(folderName):
     print("total BytesSent (in KB) =",totalBytesSent )
     print("Total Time "+str(totalTime))
     print("Total Retrasmits "+str(totalRetransmission))
+    print("Average throughput "+str(totalBytesSent/totalTime))
     for r in iperfResultsAsList:
         flowSize = r[0].end.sum_received.bytes
         flowVolume = flowSize
@@ -209,6 +210,7 @@ def getAVGFCTByFolder(folderName):
     print("total BytesSent (in KB) =",totalBytesSent )
     print("Total Time "+str(totalTime))
     print("Total Retrasmits "+str(totalRetransmission))
+    print("Average throughput "+str(totalBytesSent/totalTime))
     for r in iperfResultsAsList:
         flowSize = r[0].end.sum_received.bytes
         flowVolume = flowSize
@@ -311,150 +313,150 @@ def compareThreeFCTAndReTrans(fctList1, fctList2, fctList3, retransList1, retran
     plt.savefig("./result/"+fileName+".pdf")
 
 
-# print(" Analyzing average FCT and total retransmissions for data mining workload ")
+print(" Analyzing average FCT and total retransmissions for data mining workload ")
 
-# print("Load factor 0.8")
-# print("ECMP")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.8/client-logs-0")
-# print("\n\n")
+print("Load factor 0.8")
+print("ECMP")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.8/client-logs-0")
+print("\n\n")
 
-# print("HULA")
-# shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.8/client-logs-0")
-# print("\n\n")
+print("HULA")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.8/client-logs-0")
+print("\n\n")
 
-# print("P4TE")
-# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.8/client-logs-0")
-# print("\n\n")
-
-
+print("P4TE")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.8/client-logs-0")
+print("\n\n")
 
 
 
-# # compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "webSearch_0.8")
-# # print("-----------------------------------------------")
-# #
-# # #
-# # # #-----------------------------------------------
-# #
-# print("Load factor 0.6")
-# print("ECMP")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.6/client-logs-0")
-# print("\n\n")
 
-# print("HULA")
-# shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.6/client-logs-0")
-# print("\n\n")
 
-# print("P4TE")
-# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.6/client-logs-0")
-# print("\n\n")
-# #
-# # print("-----------------------------------------------")
+# compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "webSearch_0.8")
+# print("-----------------------------------------------")
+#
 # #
 # # #-----------------------------------------------
-# print("Load factor 0.4")
-# print("ECMP")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.4/client-logs-0")
-# print("\n\n")
+#
+print("Load factor 0.6")
+print("ECMP")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.6/client-logs-0")
+print("\n\n")
 
-# print("HULA")
-# shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.4/client-logs-0")
-# print("\n\n")
+print("HULA")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.6/client-logs-0")
+print("\n\n")
 
-# print("P4TE")
-# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.4/client-logs-0")
-# print("\n\n")
-# #
+print("P4TE")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.6/client-logs-0")
+print("\n\n")
+#
 # print("-----------------------------------------------")
-# # # #-----------------------------------------------
-# #
-# print("Load factor 0.2")
-# print("ECMP")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.2/client-logs-0")
-# print("\n\n")
+#
+# #-----------------------------------------------
+print("Load factor 0.4")
+print("ECMP")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.4/client-logs-0")
+print("\n\n")
 
-# print("HULA")
-# shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.2/client-logs-0")
-# print("\n\n")
+print("HULA")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.4/client-logs-0")
+print("\n\n")
 
-# print("P4TE")
-# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.2/client-logs-0")
-# print("\n\n")
+print("P4TE")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.4/client-logs-0")
+print("\n\n")
+#
+print("-----------------------------------------------")
+# # #-----------------------------------------------
+#
+print("Load factor 0.2")
+print("ECMP")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.2/client-logs-0")
+print("\n\n")
+
+print("HULA")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.2/client-logs-0")
+print("\n\n")
+
+print("P4TE")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.2/client-logs-0")
+print("\n\n")
 #
 print("-----------------------------------------------")
 # # #
+
+print("===================================================================================================================================================")
+print(" Analyzing average FCT and total retransmissions for web search workload ")
+
+print("Load factor 0.8")
+print("ECMP")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+print("\n\n")
+
+print("HULA")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+print("\n\n")
+
+print("P4TE")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+print("\n\n")
+
+
+
+
+
+# compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "webSearch_0.8")
+# print("-----------------------------------------------")
 #
-# print("===================================================================================================================================================")
-# print(" Analyzing average FCT and total retransmissions for web search workload ")
-
-# print("Load factor 0.8")
-# print("ECMP")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
-# print("\n\n")
-
-# print("HULA")
-# shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
-# print("\n\n")
-
-# print("P4TE")
-# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
-# print("\n\n")
-
-
-
-
-
-# # compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "webSearch_0.8")
-# # print("-----------------------------------------------")
-# #
-# # #
-# # # #-----------------------------------------------
-# #
-# print("Load factor 0.6")
-# print("ECMP")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
-# print("\n\n")
-
-# print("HULA")
-# shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
-# print("\n\n")
-
-# print("P4TE")
-# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
-# print("\n\n")
-# #
-# # print("-----------------------------------------------")
 # #
 # # #-----------------------------------------------
-# print("Load factor 0.4")
-# print("ECMP")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
-# print("\n\n")
+#
+print("Load factor 0.6")
+print("ECMP")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
+print("\n\n")
 
-# print("HULA")
-# shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
-# print("\n\n")
+print("HULA")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
+print("\n\n")
 
-# print("P4TE")
-# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
-# print("\n\n")
-# #
+print("P4TE")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
+print("\n\n")
+#
 # print("-----------------------------------------------")
-# # # #-----------------------------------------------
-# #
-# print("Load factor 0.2")
-# print("ECMP")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
-# print("\n\n")
+#
+# #-----------------------------------------------
+print("Load factor 0.4")
+print("ECMP")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
+print("\n\n")
 
-# print("HULA")
-# shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
-# print("\n\n")
+print("HULA")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
+print("\n\n")
 
-# print("P4TE")
-# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
-# print("\n\n")
-# #
+print("P4TE")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
+print("\n\n")
+#
+print("-----------------------------------------------")
+# # #-----------------------------------------------
+#
+print("Load factor 0.2")
+print("ECMP")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
+print("\n\n")
+
+print("HULA")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
+print("\n\n")
+
+print("P4TE")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
+print("\n\n")
+#
 
 
 
@@ -462,131 +464,131 @@ print("-----------------------------------------------")
 # print(" Analyzing average FCT and total retransmissions for Flowlet Interval determination")
 
 # print("ECMP-10")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP-10/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP-10/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
 # print("\n\n")
 
 # print("ECMP-20")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP-20/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP-20/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
 # print("\n\n")
 
 # print("ECMP-30")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP-30/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP-30/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
 # print("\n\n")
 
 # print("ECMP-40")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP-40/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP-40/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
 # print("\n\n")
 
 # print("ECMP-50")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP-50/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP-50/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
 # print("\n\n")
 
 # print("ECMP-60")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP-60/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP-60/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
 # print("\n\n")
 
 # print("ECMP-70")
-# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/ECMP-70/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+# shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP-70/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
 # print("\n\n")
 
-
-print("===================================================================================================================================================")
-print(" Analyzing average FCT and total retransmissions for Impact of Rate control determination Using Web Search Workload ")
-
-print("Load factor 0.8")
-
-print("P4TE-Without-Rate-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
-print("\n\n")
 #
-
-print("P4TE-With-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
-print("\n\n")
-
-
-print("Load factor 0.6")
-
-print("P4TE-Without-Rate-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
-print("\n\n")
+# print("===================================================================================================================================================")
+# print(" Analyzing average FCT and total retransmissions for Impact of Rate control determination Using Web Search Workload ")
 #
-
-print("P4TE-With-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
-print("\n\n")
-
-
-print("Load factor 0.4")
-
-print("P4TE-Without-Rate-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
-print("\n\n")
+# print("Load factor 0.8")
 #
-
-print("P4TE-With-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
-print("\n\n")
-
-
-print("Load factor 0.2")
-
-print("P4TE-Without-Rate-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
-print("\n\n")
+# print("P4TE-Without-Rate-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+# print("\n\n")
+# #
 #
-
-print("P4TE-With-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
-print("\n\n")
-
-
-print("===================================================================================================================================================")
-print(" Analyzing average FCT and total retransmissions for Impact of Rate control determination Using Data Mining Workload ")
-
-print("Load factor 0.8")
-
-print("P4TE-Without-Rate-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/DataMining_Workload_load_factor_0.8/client-logs-0")
-print("\n\n")
+# print("P4TE-With-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+# print("\n\n")
 #
-
-print("P4TE-With-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.8/client-logs-0")
-print("\n\n")
-
-
-print("Load factor 0.6")
-
-print("P4TE-Without-Rate-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/DataMining_Workload_load_factor_0.6/client-logs-0")
-print("\n\n")
 #
-
-print("P4TE-With-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.6/client-logs-0")
-print("\n\n")
-
-print("Load factor 0.4")
-
-print("P4TE-Without-Rate-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/DataMining_Workload_load_factor_0.4/client-logs-0")
-print("\n\n")
+# print("Load factor 0.6")
 #
-
-print("P4TE-With-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.4/client-logs-0")
-print("\n\n")
-
-
-
-print("Load factor 0.2")
-
-print("P4TE-Without-Rate-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/DataMining_Workload_load_factor_0.2/client-logs-0")
-print("\n\n")
+# print("P4TE-Without-Rate-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
+# print("\n\n")
+# #
 #
-
-print("P4TE-With-Control")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/p4/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.2/client-logs-0")
-print("\n\n")
+# print("P4TE-With-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
+# print("\n\n")
+#
+#
+# print("Load factor 0.4")
+#
+# print("P4TE-Without-Rate-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
+# print("\n\n")
+# #
+#
+# print("P4TE-With-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
+# print("\n\n")
+#
+#
+# print("Load factor 0.2")
+#
+# print("P4TE-Without-Rate-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
+# print("\n\n")
+# #
+#
+# print("P4TE-With-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
+# print("\n\n")
+#
+#
+# print("===================================================================================================================================================")
+# print(" Analyzing average FCT and total retransmissions for Impact of Rate control determination Using Data Mining Workload ")
+#
+# print("Load factor 0.8")
+#
+# print("P4TE-Without-Rate-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/DataMining_Workload_load_factor_0.8/client-logs-0")
+# print("\n\n")
+# #
+#
+# print("P4TE-With-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.8/client-logs-0")
+# print("\n\n")
+#
+#
+# print("Load factor 0.6")
+#
+# print("P4TE-Without-Rate-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/DataMining_Workload_load_factor_0.6/client-logs-0")
+# print("\n\n")
+# #
+#
+# print("P4TE-With-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.6/client-logs-0")
+# print("\n\n")
+#
+# print("Load factor 0.4")
+#
+# print("P4TE-Without-Rate-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/DataMining_Workload_load_factor_0.4/client-logs-0")
+# print("\n\n")
+# #
+#
+# print("P4TE-With-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.4/client-logs-0")
+# print("\n\n")
+#
+#
+#
+# print("Load factor 0.2")
+#
+# print("P4TE-Without-Rate-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE-NRC/DataMining_Workload_load_factor_0.2/client-logs-0")
+# print("\n\n")
+# #
+#
+# print("P4TE-With-Control")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.2/client-logs-0")
+# print("\n\n")
