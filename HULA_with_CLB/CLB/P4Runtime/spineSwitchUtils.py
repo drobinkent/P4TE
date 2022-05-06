@@ -39,30 +39,26 @@ def addUpStreamRoutingGroupForSpineSwitch(dev, upstreamPortsList):
         group.add(member.member_id)
     group.modify()
 
-def setPortQueueRatesAndDepth(dev, queueRateForLeafSwitchFacingPortsOfSpineSwitch, queueRateForSuperSpineSwitchFacingPortsOfSpineSwitch, queueRateToDepthFactor):
+def setPortQueueRatesAndDepth(dev, queueRateForHostFacingPortsOfLeafSwitch, queueRateForSpineFacingPortsOfLeafSwitch, queueRateToDepthFactor):
     cmdString = ""
     #Setting up ratre and depth for host facing ports
-    for lswitchFacingPort in dev.portToLeafSwitchMap.keys():
-        cmdString = ""
-        cmdString = cmdString+  "set_queue_rate "+str(queueRateForLeafSwitchFacingPortsOfSpineSwitch)+ " "+str(lswitchFacingPort)+"\n"
+    for hPort in dev.portToHostMap.keys():
+        cmdString = cmdString+  "set_queue_rate "+str(queueRateForHostFacingPortsOfLeafSwitch)+ " "+str(hPort)+"\n"
         dev.executeCommand(cmdString)
         cmdString = ""
-        cmdString = cmdString+  "set_queue_depth "+str(int(queueRateToDepthFactor) * int( queueRateForLeafSwitchFacingPortsOfSpineSwitch))+ " "+str(lswitchFacingPort)+"\n"
+        cmdString = cmdString+  "set_queue_depth "+str(math.floor(queueRateToDepthFactor* queueRateForHostFacingPortsOfLeafSwitch))+ " "+str(hPort)+"\n"
         dev.executeCommand(cmdString)
-        dev.setPortQueueRate(lswitchFacingPort,queueRateForLeafSwitchFacingPortsOfSpineSwitch )
-        dev.setPortQueueDepth(lswitchFacingPort,(int(queueRateToDepthFactor) * int( queueRateForLeafSwitchFacingPortsOfSpineSwitch)))
-
-    for superSpineFacingPort in list(dev.portToSuperSpineSwitchMap.keys()):
+        dev.setPortQueueRate(hPort,queueRateForHostFacingPortsOfLeafSwitch )
+        dev.setPortQueueDepth(hPort,math.floor((queueRateToDepthFactor *queueRateForHostFacingPortsOfLeafSwitch)))
+    for spineFacingPort in list(dev.portToSpineSwitchMap.keys()):
         cmdString = ""
-        cmdString = cmdString+  "set_queue_rate "+str(queueRateForSuperSpineSwitchFacingPortsOfSpineSwitch)+ " "+str(superSpineFacingPort)+"\n"
+        cmdString = cmdString+  "set_queue_rate "+str(queueRateForSpineFacingPortsOfLeafSwitch)+ " "+str(spineFacingPort)+"\n"
         dev.executeCommand(cmdString)
-        logger.info("Executed queue rate and depth setup commmand for device "+ str(dev)+" command is: "+cmdString)
         cmdString = ""
-        cmdString = cmdString+  "set_queue_depth "+str(int(queueRateToDepthFactor) * int( queueRateForSuperSpineSwitchFacingPortsOfSpineSwitch))+ " "+str(superSpineFacingPort)+"\n"
+        cmdString = cmdString+  "set_queue_depth "+str(math.floor(queueRateToDepthFactor * queueRateForSpineFacingPortsOfLeafSwitch))+ " "+str(spineFacingPort)+"\n"
         dev.executeCommand(cmdString)
-        logger.info("Executed queue rate and depth setup commmand for device "+ str(dev)+" command is: "+cmdString)
-        dev.setPortQueueRate(superSpineFacingPort,queueRateForSuperSpineSwitchFacingPortsOfSpineSwitch )
-        dev.setPortQueueDepth(superSpineFacingPort,(int(queueRateToDepthFactor) * int( queueRateForSuperSpineSwitchFacingPortsOfSpineSwitch)))
-    logger.info("Executing queue rate and depth setup commmand for device "+ str(dev))
-    #logger.info("command is: "+cmdString)
+        dev.setPortQueueRate(spineFacingPort,queueRateForSpineFacingPortsOfLeafSwitch )
+        dev.setPortQueueDepth(spineFacingPort,math.floor(queueRateToDepthFactor *queueRateForSpineFacingPortsOfLeafSwitch))
+    logger.info("Executing queuerate and depth setup commmand for device "+ str(dev))
+    logger.info("command is: "+cmdString)
     #dev.executeCommand(cmdString)

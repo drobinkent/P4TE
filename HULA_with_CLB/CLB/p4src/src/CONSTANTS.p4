@@ -159,7 +159,7 @@ const bit<32> SEQ_NUMBER_THRESHOLD_FOR_RATE_CONTROL = 5000; // this means for ea
 
 
 //============================flowlet regrading constnts
-const bit<48> FLOWLET_INTER_PACKET_GAP_THRESHOLD = 48w20000 ;  //40 packets per second rate means 1/40 second means 25000 microsecond
+const bit<48> FLOWLET_INTER_PACKET_GAP_THRESHOLD = 48w40000 ;  //40 packets per second rate means 1/40 second means 25000 microsecond
 const bit<8> WINDOW_DECREASE_RATIO = 2;  // this is used when there is some congestion how mnay times ^ -1 a windows will be reduced. 2 means 2 times shift. or window size half.
 const bit<8> WINDOW_INCREASE_RATIO = 8;
 
