@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 import ConfigConst
 
+globalPercentileList = [10,25,50,75,90,100]
 
 def getAllFilesInDirectory(folderPath):
 
@@ -68,111 +69,111 @@ def getAllFilesInDirectory(folderPath):
 #         totalOfFlowSizeMultipliedByAvgFct = totalOfFlowSizeMultipliedByAvgFct + ( float(f) * weightedFct)
 #     print("Average FCT  = ", totalOfFlowSizeMultipliedByAvgFct/totalFlowsize)
 #     pass
-
-def getAVGFCTByFolderOld(folderName):
-    # files = getAllFilesInDirectory(folderName)
-    flowTypeVsFCTMap = {}
-    flowTypeVsFlowCountMap = {}
-    flowTypeVsSendBytesMap = {}
-    flowTypeVsRetransmissionMap = {}
-    fctList = []
-    retransList = []
-    # for flowVolume in ConfigConst.FLOW_TYPE_IDENTIFIER_BY_FLOW_VOLUME_IN_KB:
-    #     # flowTypeVsFCTMap[flowVolume]  = 0
-    #     flowTypeVsFCTMap[flowVolume]  = []
-    #     flowTypeVsFlowCountMap[flowVolume] = 0
-    start, end, iperfResultsAsList = rp.parseIperfResultsFromFolder(folderName)
-    iperfResultsAsList = iperfResultsAsList.iperfResults
-    # print("Result is ", iperfResultsAsList.iperfResultsAsList)
-
-    totalBytesSent = 0
-    totalTime = 0
-    totalRetransmission= 0
-    for r in iperfResultsAsList:
-        flowSize = r[0].end.sum_received.bytes
-        fct = r[0].end.sum_received.seconds
-        totalTime = totalTime + fct
-        fctList.append(fct)
-        totalBytesSent = totalBytesSent + flowSize
-        retransmits = r[0].end.sum_sent.retransmits
-        retransList.append(retransmits)
-        totalRetransmission = totalRetransmission + retransmits
-    totalBytesSent = totalBytesSent/1024
-
-    print("Total flows "+str(len(iperfResultsAsList)))
-    print("total BytesSent (in KB) =",totalBytesSent )
-    print("Total Time "+str(totalTime))
-    print("Total Retrasmits "+str(totalRetransmission))
-    print("Average throughput "+str(totalBytesSent/totalTime))
-    for r in iperfResultsAsList:
-        flowSize = r[0].end.sum_received.bytes
-        flowVolume = flowSize
-        # print(flowSize)
-        fct = r[0].end.sum_received.seconds
-        # flowTypeVsFCTMap[flowVolume] = flowTypeVsFCTMap.get(flowVolume) + fct
-        if (flowTypeVsFCTMap.get(flowVolume) == None):
-            flowTypeVsFCTMap[flowVolume] = [fct]
-            flowTypeVsFlowCountMap[flowVolume] = 1
-            flowTypeVsSendBytesMap[flowVolume] = [flowVolume]
-            flowTypeVsRetransmissionMap[flowVolume] = [r[0].end.sum_sent.retransmits]
-            pass
-        else:
-            flowTypeVsFCTMap.get(flowVolume).append(fct)
-            flowTypeVsFlowCountMap[flowVolume] = flowTypeVsFlowCountMap.get(flowVolume) + 1
-            flowTypeVsSendBytesMap.get(flowVolume).append(flowSize)
-            flowTypeVsRetransmissionMap.get(flowVolume).append(r[0].end.sum_sent.retransmits)
-    totalFlowsize = 0
-    totalOfFlowSizeMultipliedByAvgFct=0
-    shortFlowTotalBytesSent = 0
-    shortFlowTotalBytesMultipliedByFCT = 0
-    shortFlowTotalBytesMultipledByRetransmission =0
-    largeFlowTotalBytesSent = 0
-    largeFlowTotalBytesMultipliedByFCT = 0
-    largeFlowTotalRetransmission =0
-    shortFlowcount = 0
-    largeFlowcount = 0
-    for f in flowTypeVsFCTMap:
-        j=0
-        for j in range(0,len(flowTypeVsSendBytesMap.get(f))):
-            if (flowTypeVsSendBytesMap.get(f)[j]<1024*1024):
-                shortFlowTotalBytesSent = shortFlowTotalBytesSent + float(f)
-                shortFlowTotalBytesMultipliedByFCT = shortFlowTotalBytesMultipliedByFCT + float(f) * flowTypeVsFCTMap.get(f)[j]
-                shortFlowTotalBytesMultipledByRetransmission = shortFlowTotalBytesMultipledByRetransmission + flowTypeVsRetransmissionMap.get(f)[j]
-                shortFlowcount =  shortFlowcount  + 1
-            else:
-                largeFlowTotalBytesSent = largeFlowTotalBytesSent + float(f)
-                largeFlowTotalBytesMultipliedByFCT = largeFlowTotalBytesMultipliedByFCT + float(f) * flowTypeVsFCTMap.get(f)[j]
-                largeFlowTotalRetransmission = largeFlowTotalRetransmission + flowTypeVsRetransmissionMap.get(f)[j]
-                largeFlowcount = largeFlowcount  + 1
-        # weightedFct = np.average(flowTypeVsFCTMap.get(f))
-        #
-        # totalFlowsize= totalFlowsize+ float(f)
-        # totalOfFlowSizeMultipliedByAvgFct = totalOfFlowSizeMultipliedByAvgFct + ( float(f) * weightedFct)
-    if (shortFlowTotalBytesSent > 0):
-        print("shortFlowcount is "+str(shortFlowcount))
-        print("Average FCT for short flow  = ", shortFlowTotalBytesMultipliedByFCT/shortFlowTotalBytesSent)
-    if (largeFlowTotalBytesSent > 0):
-        print("largeFlowcount is "+str(largeFlowcount))
-        print("Average FCT for large flow  = ", largeFlowTotalBytesMultipliedByFCT/largeFlowTotalBytesSent)
-    print("Average retransmissions for short flow  = ", shortFlowTotalBytesMultipledByRetransmission/shortFlowcount)
-    print("Average retransmissions for large flow  = ", largeFlowTotalRetransmission/largeFlowcount)
-
-    # sort the data:
-    fctSorted = np.sort(fctList)
-
-    # calculate the proportional values of samples
-    p = 1. * np.arange(len(fctList)) / (len(fctList) - 1)
-    # plot the sorted data:
-    fig = plt.figure()
-    ax1 = fig.add_subplot(121)
-    ax1.plot(p, fctSorted)
-    ax1.set_xlabel('$p$')
-    ax1.set_ylabel('$x$')
-    plt.savefig("/home/deba/Desktop/P4TE/result/test.pdf")
-
-
-
-    pass
+#
+# def getAVGFCTByFolderOld(folderName):
+#     # files = getAllFilesInDirectory(folderName)
+#     flowTypeVsFCTMap = {}
+#     flowTypeVsFlowCountMap = {}
+#     flowTypeVsSendBytesMap = {}
+#     flowTypeVsRetransmissionMap = {}
+#     fctList = []
+#     retransList = []
+#     # for flowVolume in ConfigConst.FLOW_TYPE_IDENTIFIER_BY_FLOW_VOLUME_IN_KB:
+#     #     # flowTypeVsFCTMap[flowVolume]  = 0
+#     #     flowTypeVsFCTMap[flowVolume]  = []
+#     #     flowTypeVsFlowCountMap[flowVolume] = 0
+#     start, end, iperfResultsAsList = rp.parseIperfResultsFromFolder(folderName)
+#     iperfResultsAsList = iperfResultsAsList.iperfResults
+#     # print("Result is ", iperfResultsAsList.iperfResultsAsList)
+#
+#     totalBytesSent = 0
+#     totalTime = 0
+#     totalRetransmission= 0
+#     for r in iperfResultsAsList:
+#         flowSize = r[0].end.sum_received.bytes
+#         fct = r[0].end.sum_received.seconds
+#         totalTime = totalTime + fct
+#         fctList.append(fct)
+#         totalBytesSent = totalBytesSent + flowSize
+#         retransmits = r[0].end.sum_sent.retransmits
+#         retransList.append(retransmits)
+#         totalRetransmission = totalRetransmission + retransmits
+#     totalBytesSent = totalBytesSent/1024
+#
+#     print("Total flows "+str(len(iperfResultsAsList)))
+#     print("total BytesSent (in KB) =",totalBytesSent )
+#     print("Total Time "+str(totalTime))
+#     print("Total Retrasmits "+str(totalRetransmission))
+#     print("Average throughput "+str(totalBytesSent/totalTime))
+#     for r in iperfResultsAsList:
+#         flowSize = r[0].end.sum_received.bytes
+#         flowVolume = flowSize
+#         # print(flowSize)
+#         fct = r[0].end.sum_received.seconds
+#         # flowTypeVsFCTMap[flowVolume] = flowTypeVsFCTMap.get(flowVolume) + fct
+#         if (flowTypeVsFCTMap.get(flowVolume) == None):
+#             flowTypeVsFCTMap[flowVolume] = [fct]
+#             flowTypeVsFlowCountMap[flowVolume] = 1
+#             flowTypeVsSendBytesMap[flowVolume] = [flowVolume]
+#             flowTypeVsRetransmissionMap[flowVolume] = [r[0].end.sum_sent.retransmits]
+#             pass
+#         else:
+#             flowTypeVsFCTMap.get(flowVolume).append(fct)
+#             flowTypeVsFlowCountMap[flowVolume] = flowTypeVsFlowCountMap.get(flowVolume) + 1
+#             flowTypeVsSendBytesMap.get(flowVolume).append(flowSize)
+#             flowTypeVsRetransmissionMap.get(flowVolume).append(r[0].end.sum_sent.retransmits)
+#     totalFlowsize = 0
+#     totalOfFlowSizeMultipliedByAvgFct=0
+#     shortFlowTotalBytesSent = 0
+#     shortFlowTotalBytesMultipliedByFCT = 0
+#     shortFlowTotalBytesMultipledByRetransmission =0
+#     largeFlowTotalBytesSent = 0
+#     largeFlowTotalBytesMultipliedByFCT = 0
+#     largeFlowTotalRetransmission =0
+#     shortFlowcount = 0
+#     largeFlowcount = 0
+#     for f in flowTypeVsFCTMap:
+#         j=0
+#         for j in range(0,len(flowTypeVsSendBytesMap.get(f))):
+#             if (flowTypeVsSendBytesMap.get(f)[j]<1024*1024):
+#                 shortFlowTotalBytesSent = shortFlowTotalBytesSent + float(f)
+#                 shortFlowTotalBytesMultipliedByFCT = shortFlowTotalBytesMultipliedByFCT + float(f) * flowTypeVsFCTMap.get(f)[j]
+#                 shortFlowTotalBytesMultipledByRetransmission = shortFlowTotalBytesMultipledByRetransmission + flowTypeVsRetransmissionMap.get(f)[j]
+#                 shortFlowcount =  shortFlowcount  + 1
+#             else:
+#                 largeFlowTotalBytesSent = largeFlowTotalBytesSent + float(f)
+#                 largeFlowTotalBytesMultipliedByFCT = largeFlowTotalBytesMultipliedByFCT + float(f) * flowTypeVsFCTMap.get(f)[j]
+#                 largeFlowTotalRetransmission = largeFlowTotalRetransmission + flowTypeVsRetransmissionMap.get(f)[j]
+#                 largeFlowcount = largeFlowcount  + 1
+#         # weightedFct = np.average(flowTypeVsFCTMap.get(f))
+#         #
+#         # totalFlowsize= totalFlowsize+ float(f)
+#         # totalOfFlowSizeMultipliedByAvgFct = totalOfFlowSizeMultipliedByAvgFct + ( float(f) * weightedFct)
+#     if (shortFlowTotalBytesSent > 0):
+#         print("shortFlowcount is "+str(shortFlowcount))
+#         print("Average FCT for short flow  = ", shortFlowTotalBytesMultipliedByFCT/shortFlowTotalBytesSent)
+#     if (largeFlowTotalBytesSent > 0):
+#         print("largeFlowcount is "+str(largeFlowcount))
+#         print("Average FCT for large flow  = ", largeFlowTotalBytesMultipliedByFCT/largeFlowTotalBytesSent)
+#     print("Average retransmissions for short flow  = ", shortFlowTotalBytesMultipledByRetransmission/shortFlowcount)
+#     print("Average retransmissions for large flow  = ", largeFlowTotalRetransmission/largeFlowcount)
+#
+#     # sort the data:
+#     fctSorted = np.sort(fctList)
+#
+#     # calculate the proportional values of samples
+#     p = 1. * np.arange(len(fctList)) / (len(fctList) - 1)
+#     # plot the sorted data:
+#     fig = plt.figure()
+#     ax1 = fig.add_subplot(121)
+#     ax1.plot(p, fctSorted)
+#     ax1.set_xlabel('$p$')
+#     ax1.set_ylabel('$x$')
+#     plt.savefig("/home/deba/Desktop/P4TE/result/test.pdf")
+#
+#
+#
+#     pass
 
 
 def getAVGFCTByFolder(folderName):
@@ -261,10 +262,12 @@ def getAVGFCTByFolder(folderName):
         # totalOfFlowSizeMultipliedByAvgFct = totalOfFlowSizeMultipliedByAvgFct + ( float(f) * weightedFct)
     if (shortFlowTotalBytesSent > 0):
         print("shortFlowcount is "+str(shortFlowcount))
-        print("Average FCT for short flow  = ", shortFlowTotalBytesMultipliedByFCT/shortFlowTotalBytesSent)
+        # print("Average FCT for short flow  = ", shortFlowTotalBytesMultipliedByFCT/shortFlowTotalBytesSent)
+        print("Average FCT for short flow  = ", np.average(shortFctList))
     if (largeFlowTotalBytesSent > 0):
         print("largeFlowcount is "+str(largeFlowcount))
         print("Average FCT for large flow  = ", largeFlowTotalBytesMultipliedByFCT/largeFlowTotalBytesSent)
+        # print("Average FCT for latge flow  = ", np.average(largeFctList))
     print("Average retransmissions for short flow  = ", shortFlowTotalBytesMultipledByRetransmission/shortFlowcount)
     print("Average retransmissions for large flow  = ", largeFlowTotalRetransmission/largeFlowcount)
     percentileList = [25,70,80,90,100]
@@ -283,6 +286,16 @@ def getAVGFCTByFolder(folderName):
 
     return shortFctList, shortRetransList, largeFctList, largeRetransList
 
+def getGlobalPercentileValues(values):
+    valueList = []
+    values.sort()
+    for p in globalPercentileList:
+        valueList.append(np.percentile(values,p))
+    pList = []
+    for p in globalPercentileList:
+        pList.append(p/100)
+    return valueList, pList
+
 def compareThreeFCTAndReTrans(fctList1, fctList2, fctList3, retransList1, retransList2, retransList3, fileName):
     fctList1 = np.sort(fctList1)
     fctList2 = np.sort(fctList2)
@@ -295,22 +308,50 @@ def compareThreeFCTAndReTrans(fctList1, fctList2, fctList3, retransList1, retran
     fctfig = plt.figure()
     ax1 = fctfig.add_subplot(121)
     # calculate the proportional values of samples
+
+    p = 1. * np.arange(len(retransList1)) / (len(retransList1) - 1)
+    # plot the sorted data:
+    # Make p as an np array of percentile values we want to show in graph and make another array with corresponding values.
+    retransList1,p = getGlobalPercentileValues(retransList1)
+    ax1.plot( retransList1,p, label="ECMP",marker="D")
+    p = 1. * np.arange(len(retransList2)) / (len(retransList2) - 1)
+    # plot the sorted data:
+    retransList2,p = getGlobalPercentileValues(retransList2)
+    ax1.plot( retransList2,p, label="HULA",marker="s")
+    p = 1. * np.arange(len(retransList3)) / (len(retransList3) - 1)
+    # plot the sorted data:
+    retransList3,p = getGlobalPercentileValues(retransList3)
+    ax1.plot(retransList3, p, label="P4TE",marker="^")
+
+    ax1.set_xlabel('$No. of Retransmissions$')
+    ax1.set_ylabel('$x$')
+    ax1.legend(loc="upper left", ncol=4)
+    ax1.legend( ncol=4)
+    ax1.legend(fontsize=10)
+    plt.savefig("./result/Retrans-"+fileName+".pdf")
+
+    fctfig = plt.figure()
+    ax1 = fctfig.add_subplot(121)
+    # calculate the proportional values of samples
     p = 1. * np.arange(len(fctList1)) / (len(fctList1) - 1)
     # plot the sorted data:
-    ax1.plot( fctList1,p, label="ECMP")
+    fctList1,p = getGlobalPercentileValues(fctList1)
+    ax1.plot( fctList1,p, label="ECMP",marker="D")
     p = 1. * np.arange(len(fctList2)) / (len(fctList2) - 1)
     # plot the sorted data:
-    ax1.plot( fctList2,p, label="HULA")
+    fctList2,p = getGlobalPercentileValues(fctList2)
+    ax1.plot( fctList2,p, label="HULA",marker="s")
     p = 1. * np.arange(len(fctList3)) / (len(fctList3) - 1)
     # plot the sorted data:
-    ax1.plot(fctList3, p, label="P4TE")
+    fctList3,p = getGlobalPercentileValues(fctList3)
+    ax1.plot(fctList3, p, label="P4TE",marker="^")
 
     ax1.set_xlabel('$FCT$')
     ax1.set_ylabel('$x$')
     ax1.legend(loc="upper left", ncol=4)
     ax1.legend( ncol=4)
     ax1.legend(fontsize=10)
-    plt.savefig("./result/"+fileName+".pdf")
+    plt.savefig("./result/FCT-"+fileName+".pdf")
 
 
 print(" Analyzing average FCT and total retransmissions for data mining workload ")
@@ -328,11 +369,8 @@ print("P4TE")
 shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.8/client-logs-0")
 print("\n\n")
 
-
-
-
-
-# compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "webSearch_0.8")
+compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "datamining_0.8-short-flow")
+compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, largeRetransList1, largeRetransList2, largeRetransList3, "datamining_0.8-large-flow")
 # print("-----------------------------------------------")
 #
 # #
@@ -350,6 +388,8 @@ print("\n\n")
 print("P4TE")
 shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.6/client-logs-0")
 print("\n\n")
+compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "datamining_0.6-short-flow")
+compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, largeRetransList1, largeRetransList2, largeRetransList3, "datamining_0.6-large-flow")
 #
 # print("-----------------------------------------------")
 #
@@ -366,6 +406,8 @@ print("\n\n")
 print("P4TE")
 shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.4/client-logs-0")
 print("\n\n")
+compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "datamining_0.4-short-flow")
+compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, largeRetransList1, largeRetransList2, largeRetransList3, "datamining_0.4-large-flow")
 #
 print("-----------------------------------------------")
 # # #-----------------------------------------------
@@ -382,6 +424,8 @@ print("\n\n")
 print("P4TE")
 shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.2/client-logs-0")
 print("\n\n")
+compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "datamining_0.2-short-flow")
+compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, largeRetransList1, largeRetransList2, largeRetransList3, "datamining_0.2-large-flow")
 #
 print("-----------------------------------------------")
 # # #
@@ -401,7 +445,8 @@ print("\n\n")
 print("P4TE")
 shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
 print("\n\n")
-
+compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.8-short-flow")
+compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, largeRetransList1, largeRetransList2, largeRetransList3, "websearch_0.8-large-flow")
 
 
 
@@ -424,6 +469,8 @@ print("\n\n")
 print("P4TE")
 shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
 print("\n\n")
+compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.6-short-flow")
+compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.6-large-flow")
 #
 # print("-----------------------------------------------")
 #
@@ -440,6 +487,8 @@ print("\n\n")
 print("P4TE")
 shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
 print("\n\n")
+compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.4-short-flow")
+compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.4-large-flow")
 #
 print("-----------------------------------------------")
 # # #-----------------------------------------------
@@ -456,6 +505,8 @@ print("\n\n")
 print("P4TE")
 shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
 print("\n\n")
+compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.2-short-flow")
+compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.2-large-flow")
 #
 
 
