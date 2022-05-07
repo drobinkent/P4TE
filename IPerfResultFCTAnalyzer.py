@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 import ConfigConst
 
-globalPercentileList = [10,25,50,75,90,100]
+globalPercentileList = [10,20,30,40,50,60,70,80,90,100]
 
 def getAllFilesInDirectory(folderPath):
 
@@ -284,7 +284,7 @@ def getAVGFCTByFolder(folderName):
         print(np.percentile(fctCombo,p))
     # print("Avg:"+str(np.average(fctCombo)))
 
-    return shortFctList, shortRetransList, largeFctList, largeRetransList
+    return shortFctList, shortRetransList, largeFctList, largeRetransList, shortFctList+largeFctList, shortRetransList+largeRetransList
 
 def getGlobalPercentileValues(values):
     valueList = []
@@ -323,8 +323,8 @@ def compareThreeFCTAndReTrans(fctList1, fctList2, fctList3, retransList1, retran
     retransList3,p = getGlobalPercentileValues(retransList3)
     ax1.plot(retransList3, p, label="P4TE",marker="^")
 
-    ax1.set_xlabel('$No. of Retransmissions$')
-    ax1.set_ylabel('$x$')
+    ax1.set_xlabel('No. of Retransmissions')
+    ax1.set_ylabel('CDF of Retransmissions')
     ax1.legend(loc="upper left", ncol=4)
     ax1.legend( ncol=4)
     ax1.legend(fontsize=10)
@@ -346,8 +346,8 @@ def compareThreeFCTAndReTrans(fctList1, fctList2, fctList3, retransList1, retran
     fctList3,p = getGlobalPercentileValues(fctList3)
     ax1.plot(fctList3, p, label="P4TE",marker="^")
 
-    ax1.set_xlabel('$FCT$')
-    ax1.set_ylabel('$x$')
+    ax1.set_xlabel('FCT (in sec.)')
+    ax1.set_ylabel('CDF of FCT')
     ax1.legend(loc="upper left", ncol=4)
     ax1.legend( ncol=4)
     ax1.legend(fontsize=10)
@@ -358,19 +358,21 @@ print(" Analyzing average FCT and total retransmissions for data mining workload
 
 print("Load factor 0.8")
 print("ECMP")
-shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.8/client-logs-0")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1, combinedFCTList1, combinedRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.8/client-logs-0")
 print("\n\n")
 
 print("HULA")
-shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.8/client-logs-0")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2, combinedFCTList2, combinedRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.8/client-logs-0")
 print("\n\n")
 
 print("P4TE")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.8/client-logs-0")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 , combinedFCTList3, combinedRetransList3= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.8/client-logs-0")
 print("\n\n")
 
 compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "datamining_0.8-short-flow")
 compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, largeRetransList1, largeRetransList2, largeRetransList3, "datamining_0.8-large-flow")
+compareThreeFCTAndReTrans(combinedFCTList1, combinedFCTList2, combinedFCTList3, combinedRetransList1, combinedRetransList2, combinedRetransList2, "datamining_0.8-combined")
+
 # print("-----------------------------------------------")
 #
 # #
@@ -378,54 +380,57 @@ compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, largeRetr
 #
 print("Load factor 0.6")
 print("ECMP")
-shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.6/client-logs-0")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1, combinedFCTList1, combinedRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.6/client-logs-0")
 print("\n\n")
 
 print("HULA")
-shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.6/client-logs-0")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2,combinedFCTList2, combinedRetransList2  = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.6/client-logs-0")
 print("\n\n")
 
 print("P4TE")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.6/client-logs-0")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3,combinedFCTList3, combinedRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.6/client-logs-0")
 print("\n\n")
 compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "datamining_0.6-short-flow")
 compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, largeRetransList1, largeRetransList2, largeRetransList3, "datamining_0.6-large-flow")
+compareThreeFCTAndReTrans(combinedFCTList1, combinedFCTList2, combinedFCTList3, combinedRetransList1, combinedRetransList2, combinedRetransList2, "datamining_0.6-combined")
 #
 # print("-----------------------------------------------")
 #
 # #-----------------------------------------------
 print("Load factor 0.4")
 print("ECMP")
-shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.4/client-logs-0")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1, combinedFCTList1, combinedRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.4/client-logs-0")
 print("\n\n")
 
 print("HULA")
-shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.4/client-logs-0")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2,combinedFCTList2, combinedRetransList2  = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.4/client-logs-0")
 print("\n\n")
 
 print("P4TE")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.4/client-logs-0")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 ,combinedFCTList3, combinedRetransList3= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.4/client-logs-0")
 print("\n\n")
 compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "datamining_0.4-short-flow")
 compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, largeRetransList1, largeRetransList2, largeRetransList3, "datamining_0.4-large-flow")
+compareThreeFCTAndReTrans(combinedFCTList1, combinedFCTList2, combinedFCTList3, combinedRetransList1, combinedRetransList2, combinedRetransList2, "datamining_0.4-combined")
 #
 print("-----------------------------------------------")
 # # #-----------------------------------------------
 #
 print("Load factor 0.2")
 print("ECMP")
-shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.2/client-logs-0")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1, combinedFCTList1, combinedRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/DataMining_Workload_load_factor_0.2/client-logs-0")
 print("\n\n")
 
 print("HULA")
-shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.2/client-logs-0")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 ,combinedFCTList2, combinedRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/DataMining_Workload_load_factor_0.2/client-logs-0")
 print("\n\n")
 
 print("P4TE")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.2/client-logs-0")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3,combinedFCTList3, combinedRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.2/client-logs-0")
 print("\n\n")
 compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "datamining_0.2-short-flow")
 compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, largeRetransList1, largeRetransList2, largeRetransList3, "datamining_0.2-large-flow")
+compareThreeFCTAndReTrans(combinedFCTList1, combinedFCTList2, combinedFCTList3, combinedRetransList1, combinedRetransList2, combinedRetransList2, "datamining_0.2-combined")
 #
 print("-----------------------------------------------")
 # # #
@@ -435,18 +440,19 @@ print(" Analyzing average FCT and total retransmissions for web search workload 
 
 print("Load factor 0.8")
 print("ECMP")
-shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1, combinedFCTList1, combinedRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
 print("\n\n")
 
 print("HULA")
-shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2,combinedFCTList2, combinedRetransList2  = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
 print("\n\n")
 
 print("P4TE")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3,combinedFCTList3, combinedRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.8/client-logs-0")
 print("\n\n")
 compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.8-short-flow")
 compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, largeRetransList1, largeRetransList2, largeRetransList3, "websearch_0.8-large-flow")
+compareThreeFCTAndReTrans(combinedFCTList1, combinedFCTList2, combinedFCTList3, combinedRetransList1, combinedRetransList2, combinedRetransList2, "websearch_0.8-combined")
 
 
 
@@ -459,54 +465,57 @@ compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, largeRetr
 #
 print("Load factor 0.6")
 print("ECMP")
-shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1, combinedFCTList1, combinedRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
 print("\n\n")
 
 print("HULA")
-shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2,combinedFCTList2, combinedRetransList2  = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
 print("\n\n")
 
 print("P4TE")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 ,combinedFCTList3, combinedRetransList3= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.6/client-logs-0")
 print("\n\n")
 compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.6-short-flow")
-compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.6-large-flow")
+compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.6-large-flow")
+compareThreeFCTAndReTrans(combinedFCTList1, combinedFCTList2, combinedFCTList3, combinedRetransList1, combinedRetransList2, combinedRetransList2, "websearch_0.6-combined")
 #
 # print("-----------------------------------------------")
 #
 # #-----------------------------------------------
 print("Load factor 0.4")
 print("ECMP")
-shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1, combinedFCTList1, combinedRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
 print("\n\n")
 
 print("HULA")
-shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 ,combinedFCTList2, combinedRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
 print("\n\n")
 
 print("P4TE")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3,combinedFCTList3, combinedRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.4/client-logs-0")
 print("\n\n")
 compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.4-short-flow")
-compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.4-large-flow")
+compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.4-large-flow")
+compareThreeFCTAndReTrans(combinedFCTList1, combinedFCTList2, combinedFCTList3, combinedRetransList1, combinedRetransList2, combinedRetransList2, "websearch_0.4-combined")
 #
 print("-----------------------------------------------")
 # # #-----------------------------------------------
 #
 print("Load factor 0.2")
 print("ECMP")
-shortFctList1, shortRetransList1, largeFctList1, largeRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
+shortFctList1, shortRetransList1, largeFctList1, largeRetransList1, combinedFCTList1, combinedRetransList1= getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
 print("\n\n")
 
 print("HULA")
-shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
+shortFctList2, shortRetransList2, largeFctList2, largeRetransList2 ,combinedFCTList2, combinedRetransList2 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
 print("\n\n")
 
 print("P4TE")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3,combinedFCTList3, combinedRetransList3  = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/WebSearchWorkLoad_load_factor_0.2/client-logs-0")
 print("\n\n")
 compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.2-short-flow")
-compareThreeFCTAndReTrans(shortFctList1, shortFctList2, shortFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.2-large-flow")
+compareThreeFCTAndReTrans(largeFctList1, largeFctList2, largeFctList3, shortRetransList1, shortRetransList2, shortRetransList3, "websearch_0.2-large-flow")
+compareThreeFCTAndReTrans(combinedFCTList1, combinedFCTList2, combinedFCTList3, combinedRetransList1, combinedRetransList2, combinedRetransList2, "websearch_0.2-combined")
 #
 
 
