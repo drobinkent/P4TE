@@ -242,7 +242,7 @@ def getAVGFCTByFolder(folderName):
     for f in flowTypeVsFCTMap:
         j=0
         for j in range(0,len(flowTypeVsSendBytesMap.get(f))):
-            if (flowTypeVsSendBytesMap.get(f)[j]<1024*1024):
+            if (flowTypeVsSendBytesMap.get(f)[j]<756*1024):
                 shortFlowTotalBytesSent = shortFlowTotalBytesSent + float(f)
                 shortFlowTotalBytesMultipliedByFCT = shortFlowTotalBytesMultipliedByFCT + float(f) * flowTypeVsFCTMap.get(f)[j]
                 shortFlowTotalBytesMultipledByRetransmission = shortFlowTotalBytesMultipledByRetransmission + flowTypeVsRetransmissionMap.get(f)[j]
