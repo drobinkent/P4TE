@@ -695,17 +695,70 @@ def compareThreeFCTAndReTrans(fctList1, fctList2, fctList3, retransList1, retran
 # shortFctList3, shortRetransList3, largeFctList3, largeRetransList3 = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/DataMining_Workload_load_factor_0.2/client-logs-0")
 # print("\n\n")
 
-print("Incast")
-
-print("P4TE")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3, _, _ = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/l2-incast/client-logs-0")
-print("\n\n")
+# print("Incast")
 #
+# print("P4TE")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3, _, _ = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/P4TE/l2-incast/client-logs-0")
+# print("\n\n")
+# #
+#
+# print("ECMP")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3, _, _ = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/l2-incast/client-logs-0")
+# print("\n\n")
+#
+# print("HULA")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3, _, _ = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/l2-incast/client-logs-0")
+# print("\n\n")
 
-print("ECMP")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3, _, _ = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ECMP/l2-incast/client-logs-0")
+
+
+
+
+
+
+# print("===================================================================================================================================================")
+# print(" Analyzing Link Utilization Parameter Impact Using WebSearchWorkload0.8 ")
+
+# print("Load factor 0.8")
+
+# print("50-100")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3,_,_ = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ParameterAnalysis/LinkUtilizationRate/WebSearchWorkLoad_load_factor_0.8-50-100/client-logs-0")
+# print("\n\n")
+
+
+# print("70-100")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3,_,_ = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ParameterAnalysis/LinkUtilizationRate/WebSearchWorkLoad_load_factor_0.8-70-100/client-logs-0")
+# print("\n\n")
+
+# print("80-100")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3,_,_ = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ParameterAnalysis/LinkUtilizationRate/WebSearchWorkLoad_load_factor_0.8-80-100/client-logs-0")
+# print("\n\n")
+
+
+# print("90-100")
+# shortFctList3, shortRetransList3, largeFctList3, largeRetransList3,_,_ = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ParameterAnalysis/LinkUtilizationRate/WebSearchWorkLoad_load_factor_0.8-90-100/client-logs-0")
+# print("\n\n")
+
+
+print("===================================================================================================================================================")
+print(" Analyzing Class Based rate allocation Parameter Impact Using WebSearchWorkload0.8 ")
+
+print("Load factor 0.8")
+
+print("75-25")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3,_,_ = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ParameterAnalysis/ClassBasedIncomingRate/WebSearchWorkLoad_load_factor_0.8-75-25/client-logs-0")
 print("\n\n")
 
-print("HULA")
-shortFctList3, shortRetransList3, largeFctList3, largeRetransList3, _, _ = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/HULA/l2-incast/client-logs-0")
+
+print("80-20")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3,_,_ = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ParameterAnalysis/ClassBasedIncomingRate/WebSearchWorkLoad_load_factor_0.8-80-20/client-logs-0")
+print("\n\n")
+
+print("85-15")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3,_,_ = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ParameterAnalysis/ClassBasedIncomingRate/WebSearchWorkLoad_load_factor_0.8-85-15/client-logs-0")
+print("\n\n")
+
+
+print("90-10")
+shortFctList3, shortRetransList3, largeFctList3, largeRetransList3,_,_ = getAVGFCTByFolder(folderName= "/home/deba/Desktop/P4TE/testAndMeasurement/TEST_RESULTS/ParameterAnalysis/ClassBasedIncomingRate/WebSearchWorkLoad_load_factor_0.8-90-10/client-logs-0")
 print("\n\n")
